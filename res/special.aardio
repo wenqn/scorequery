@@ -1,0 +1,132 @@
+import win.ui;
+import win.ui.menu;
+import fsys.dlg;
+import fsys;
+import sqlite;
+import console;
+/*DSG{{*/
+var winform = win.form(text="aardio form";right=711;bottom=150;border="none";exmode="toolwindow";mode="child";parent=...)
+winform.add(
+button={cls="button";text="下载excel模板";left=58;top=37;right=143;bottom=69;z=3};
+button2={cls="button";text="浏览";left=313;top=86;right=398;bottom=118;z=4};
+button3={cls="button";text="导入";left=407;top=86;right=492;bottom=118;z=5};
+button4={cls="button";text="发布查询";left=500;top=86;right=585;bottom=118;z=6};
+button5={cls="button";text="浏览考生信息";left=161;top=37;right=246;bottom=69;z=7};
+button6={cls="button";text="导出excel";left=263;top=37;right=348;bottom=69;z=8};
+button7={cls="button";text="导出csv";left=365;top=37;right=450;bottom=69;z=9};
+edit={cls="edit";text="选择excel文件";left=58;top=90;right=302;bottom=116;edge=1;z=1};
+groupbox={cls="groupbox";text="专业成绩";left=13;top=8;right=703;bottom=148;ah=1;aw=1;cp=1;edge=1;z=2}
+)
+/*}}*/
+
+// 导出csv按钮
+winform.button7.oncommand = function(id,event){
+	//winform.msgbox( winform.button7.text );
+	var path = fsys.dlg.save("CSV(*.csv)|*.csv|所有文件(*.*)|*.*|",,,,,"特长生成绩查询.csv");
+	var db = open_db("stsb");
+	if(!db){
+		return winform.msgbox("数据库不存在"); 
+	}
+	exportCSV(path,db);
+	db.close();
+	win.msgbox("文件保存成功！");
+}
+
+
+loadcodex("\res\database.aardio");
+
+//导出excel按钮
+winform.button6.oncommand = function(id,event){
+	//winform.msgbox( winform.button6.text );
+	var path = fsys.dlg.save("Excel文件(*.xlsx)|*.xlsx|所有文件(*.*)|*.*|",,,,,"特长生成绩查询.xlsx");
+	
+	var db = open_db("stsb");
+	if(!db){
+		return winform.msgbox("数据库不存在"); 
+	}
+	exportExcel(path,db);
+	db.close();
+	
+}
+
+//发布查询按钮
+winform.button4.oncommand = function(id,event){
+	//winform.msgbox( winform.button4.text );
+	import thread.command;
+	listener = thread.command();
+	
+	thread.invoke( 
+		function(hwnd){
+			//import webaar;
+			
+			loadcodex("\www\main.aardio");
+		},listener.hwnd
+	)
+	
+	
+}
+
+
+
+//浏览信息按钮
+winform.button5.oncommand = function(id,event){
+	//winform.msgbox( winform.button5.text );
+	var db = open_db("stsb");
+	if(!db){
+		return winform.msgbox("数据库不存在");
+	}
+	var listForm = winform.loadForm("\res\listForm.aardio");
+	dbto_listview(listForm.listview,db);
+	db.close();
+}
+
+
+winform.groupbox.oncommand = function(id,event){
+	//winform.msgbox( winform.groupbox.text );
+	
+	
+}
+
+//导入按钮
+winform.button3.oncommand = function(id,event){
+	//winform.msgbox( winform.button3.text );
+		
+	if(!string.endWith(winform.edit.text,".xlsx")){
+		win.msgbox("请选择一个excel文件");
+	}else {
+		var db = creater_db("stsb");
+		if(!db) return winform.msgbox("数据库创建失败");
+		else {
+			var excel = winform.edit.text;
+			excelto_db(excel,db);
+			db.close();
+		}
+	}
+	
+}
+
+//浏览按钮
+winform.button2.oncommand = function(id,event){
+	//winform.msgbox( winform.button2.text );
+	winform.edit.text = fsys.dlg.open();
+	
+}
+
+//模板文件
+winform.button.oncommand = function(id,event){
+	//winform.msgbox( winform.button.text );
+	//var dir = "d:\tchsh";
+	var dir = fsys.getSpecial();//桌面	
+	var srcfile = "\res\模板文件\专业成绩录入模板.xlsx";
+	var dstfile = fsys.dlg.save(,"下载模板文件",dir,winform,,"专业成绩录入模板.xlsx");	
+	if(dstfile){
+		fsys.copy(srcfile,dstfile,,,winform.hwnd)			
+		winform.msgbox("保存到："+dstfile)
+	}	
+}
+
+winform.enableDpiScaling();
+winform.show();
+
+win.loopMessage();
+return winform;

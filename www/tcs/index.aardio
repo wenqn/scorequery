@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>特长生成绩查询</title>
+<style type="text/css">
+div{
+	text-align:left;
+	position:relative;
+	left:300px;
+	width:600px;
+}
+
+p{
+	text-align:left;
+}
+
+
+table {
+	margin:1px;
+	text-align:center;
+	border-collapse:collapse;
+	border:none
+}
+
+td {
+
+	padding:4px;
+	border:solid 1px;
+}
+</style>
+</head>
+<body>
+<div id="query" >
+<p >淄博五中特长生成绩查询</p>
+<form action="/tcsQuery" method="get">
+<p><span>学籍号：</span><input type="text" size="30" name="stnumber"></p>
+<p><span>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</span><input type="text" size="30" name="username">&nbsp;&nbsp;<input type="submit" value="查询"></p>
+</form>
+</div>
+
+
+<div id="score">
+<hr />
+<? var result = ...; if(result){ ?>
+
+<table><tr><td>学籍号</td><td>姓名</td><td>性别</td><td>专业</td><td>专业分</td><td>毕业学校</td><td>备注</td></tr>
+<tr>	
+<td><? =result[1].stnumber ?></td>
+<td><? =result[1].stname ?></td>
+<td><? =result[1].stsex ?></td>
+<td><? =result[1].special ?></td>
+<td><? =result[1].spscore ?></td>
+<td><? =result[1].school ?></td>
+<td><? =result[1].note ?></td>
+</tr></table>
+
+<? } ?>
+
+</div>
+
+
+</body>
+</html> 
+

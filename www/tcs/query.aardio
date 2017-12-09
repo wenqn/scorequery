@@ -1,0 +1,28 @@
+
+var q = ...;//全局变量q
+var stnb = q.stnumber; 
+var name = q.username;
+
+if(stnb == ""){
+	response.write("<script language='javascript' type='text/javascript'>window.history.go(-1);alert('学籍号不能为空')</script>"); 
+}else if(name == "" || name == null){
+	response.write("<script language='javascript' type='text/javascript'>window.history.go(-1);alert('姓名不能为空')</script>");
+}else {
+	//	stnb = string.replace(stnb,"\s","");//去空格
+	name = string.replace(name,"\s","");//去空格
+	
+	import sqlite;
+	if(!io.exist("\www\tcs\stsb.db")) return error("数据库不存在");
+	var db = sqlite("\www\tcs\stsb.db")
+	
+	var sql = "SELECT * FROM special where stnumber=" + stnb + " and stname='" + name +"'";
+	var result = db.getTable(sql);
+	if(result[1] == null){
+		response.write("<script language='javascript' type='text/javascript'>window.history.go(-1);alert('没有此考生，请检查学籍号和姓名')</script>")
+	} else {
+		loadcodex("/www/tcs/index.aardio",result);
+	}
+	
+	
+	db.close();
+}

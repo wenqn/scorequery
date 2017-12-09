@@ -1,0 +1,20 @@
+import win.ui;
+import win.util.tray;
+/*DSG{{*/
+mainForm = win.form(text="特长生成绩查询";right=728;bottom=210)
+mainForm.add(
+custom3={cls="custom";text="custom3";left=20;top=18;right=714;bottom=155;autosize=1;center=1;edge=1;transparent=1;z=1};
+progress={cls="progress";left=248;top=178;right=439;bottom=198;edge=1;hide=1;max=100;min=0;z=2};
+static={cls="static";text=" 已经导入";left=248;top=158;right=439;bottom=181;align="center";hide=1;transparent=1;z=3};
+static2={cls="static";text="山东省淄博第五中学";left=592;top=190;right=707;bottom=207;align="right";transparent=1;z=4}
+)
+/*}}*/
+
+tray = win.util.tray(mainForm.hwnd) //创建托盘图标
+tray.tip = "你的鼠标移到我的托盘图标上了" //设置鼠标提示 
+tray.pop("这是一个托盘图标","汽泡提示")
+mainForm.custom3.loadForm("\res\special.aardio")	
+mainForm.enableDpiScaling();
+mainForm.show();
+
+return win.loopMessage(); 

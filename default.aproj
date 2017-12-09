@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project ver="10" name="特长生" libEmbed="true" icon="..." ui="win" output="特长生.exe" CompanyName="单位名称" FileDescription="特长生" LegalCopyright="Copyright (C) 作者 2017" ProductName="特长生" InternalName="特长生" FileVersion="0.0.0.14" ProductVersion="0.0.0.14" publishDir="/Publish/" dstrip="false">
+	<file name="main.aardio" path="main.aardio" comment="main.aardio"/>
+	<folder name="资源文件" path="res" embed="true">
+		<file name="database.aardio" path="res\database.aardio" comment="res\database.aardio"/>
+		<file name="listForm.aardio" path="res\listForm.aardio" comment="res\listForm.aardio"/>
+		<file name="special.aardio" path="res\special.aardio" comment="res\special.aardio"/>
+		<folder name="模板文件" path="res\模板文件" comment="res\模板文件">
+			<file name="2104专业成绩.xlsx" path="res\模板文件\2104专业成绩.xlsx" comment="res\模板文件\2104专业成绩.xlsx"/>
+			<file name="专业成绩录入模板.xlsx" path="res\模板文件\专业成绩录入模板.xlsx" comment="res\模板文件\专业成绩录入模板.xlsx"/>
+			<file name="总成绩录入模板.xlsx" path="res\模板文件\总成绩录入模板.xlsx" comment="res\模板文件\总成绩录入模板.xlsx"/>
+			<file name="文化课成绩录入模板.xlsx" path="res\模板文件\文化课成绩录入模板.xlsx" comment="res\模板文件\文化课成绩录入模板.xlsx"/>
+		</folder>
+		<file name="test.aardio" path="res\test.aardio" comment="res\test.aardio"/>
+	</folder>
+	<folder name="www" path="www" comment="目录" embed="false">
+		<file name="main.aardio" path="www\main.aardio" comment="www\main.aardio"/>
+		<file name="router.aardio" path="www\router.aardio" comment="www\router.aardio"/>
+		<file name="webmain.aardio" path="www\webmain.aardio" comment="www\webmain.aardio"/>
+		<folder name="lib" path="www\lib" comment="www\lib" embed="false">
+			<file name="webaar.aardio" path="www\lib\webaar.aardio" comment="www\lib\webaar.aardio"/>
+		</folder>
+		<folder name="tcs" path="www\tcs" comment="www\tcs" embed="false">
+			<file name="index.aardio" path="www\tcs\index.aardio" comment="www\tcs\index.aardio"/>
+			<file name="query.aardio" path="www\tcs\query.aardio" comment="www\tcs\query.aardio"/>
+			<file name="stsb.db" path="www\tcs\stsb.db" comment="www\tcs\stsb.db"/>
+			<folder name="js" path="www\tcs\js" comment="www\tcs\js">
+				<folder name="jQuery" path="www\tcs\js\jQuery" comment="www\tcs\js\jQuery">
+					<file name="jquery.min.js" path="www\tcs\js\jQuery\jquery.min.js" comment="www\tcs\js\jQuery\jquery.min.js"/>
+				</folder>
+			</folder>
+		</folder>
+	</folder>
+	<folder name="dll" path="dll" comment="dll" embed="true">
+		<file name="sqlite-oledb32.dll" path="dll\sqlite-oledb32.dll" comment="dll\sqlite-oledb32.dll"/>
+		<file name="sqlite-oledb64.dll" path="dll\sqlite-oledb64.dll" comment="dll\sqlite-oledb64.dll"/>
+		<file name="sqlite3odbc.dll" path="dll\sqlite3odbc.dll" comment="dll\sqlite3odbc.dll"/>
+		<file name="sqliteodbc.dll" path="dll\sqliteodbc.dll" comment="dll\sqliteodbc.dll"/>
+	</folder>
+</project>

@@ -1,0 +1,14 @@
+import win.ui;
+/*DSG{{*/
+var winform = win.form(text="特长生成绩查询";right=759;bottom=750;parent=...)
+winform.add(
+listview={cls="listview";left=19;top=84;right=739;bottom=723;edge=1;z=1}
+)
+/*}}*/
+
+
+winform.enableDpiScaling();
+winform.show();
+
+win.loopMessage();
+return winform;

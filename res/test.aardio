@@ -1,0 +1,37 @@
+import win;
+import console;
+io.open();//打开控制台
+
+setCsv=function(tab){//参数table对像，格式化成按逗号分隔的CSV
+	var tcsv={}
+		for(i,t in tab){
+			for(j,txt in t){
+				t[j]=string.replace(txt,'"','""');//处理双引号
+				if(string.find(t[j],'[,"\r\n\t]')){//处理其他特殊字符
+					 t[j]='"' ++ t[j] ++ '"';
+				}
+			}
+				table.push(tcsv,string.join(t,","))
+		}
+	 return tcsv;
+}
+
+tab={
+{"标题1";"标题2";"标题3"};
+{"第一行内容1";"第一行内容2";"第一行内容3"};
+{"第二行,内容1(这里有逗号)";"第二行 内容2(这里有Tab符)";"第二行
+
+内容3(这里有换行)"};
+}
+
+io.print("######原内容#######")
+for(i,t in tab){
+	 txt=string.join(t,",")
+	 io.print(txt)
+}
+io.print("")
+io.print("######格式化按逗号分隔的CSV#######")
+tab=setCsv(tab)
+str=string.join(tab,'\r\n')
+io.print(str)
+console.pause();

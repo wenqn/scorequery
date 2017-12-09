@@ -1,0 +1,18 @@
+
+<html>
+<head></head>
+<body>
+<form action="/tcs" method="get" >
+<input type="submit"  value="特长生成绩查询" />
+</form>
+
+<form action="/hello" method="get" >
+<input type="submit" value="hello"/>
+</form>
+
+<form action="/index" method="get" >
+<input type="submit" value="主页"/>
+</form>
+
+</body>
+</html>

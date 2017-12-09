@@ -1,0 +1,87 @@
+﻿
+//webaar网站开发框架
+namespace webaar
+
+input = function(params) begin
+        var ret = {}
+        if(!params || type(params)!=type.table) return ret;         
+        for(k,v in params){
+                ret[k] = ..request.get[k] : v        
+        }
+        return ret; 
+end;
+
+class application{
+        ctor(urls){
+                var request = ..request
+                var response = ..response                
+        };
+        
+        run = function() begin        
+                if(!request) return simpleServerRun(urls); 
+                if(..string.startWith(request.path, "/static/", true))
+                        return error("/static目录下保存静态文件, 请设置web服务器来处理"); 
+       
+                this.handler, this.params = this.getHandler()
+                var ret = this.handler[request.method](..table.unpack(this.params))
+                if(ret) response.write(ret)
+                response.close()
+        end;        
+        
+        getHandler = function() begin                
+                for(clsName,path in urls){
+                        var params = {..string.match(request.path, "^"++ path ++"$")}
+                        if(#params){
+                                var cls = eval(".."++ clsName)
+                                if(params[1] == request.path) return cls(); 
+                                else return cls(), params;
+                        }                
+                }
+        end;        
+}
+
+namespace application{
+        simpleServerRun = function(urls, port=7777/*80*/) begin
+                import console;
+                import wsock.tcp.simpleHttpServer;                        
+                var app = wsock.tcp.simpleHttpServer("127.0.0.1", port);        
+                console.log(..string.format("本机%d端口启动web服务器...", port))
+                app.run(
+                        function(response,request){        
+                                console.log("请求：", request.url)
+                                loadcodex("/www/main.aardio");
+                        }         
+                );        
+        end;        
+}
+
+render = {
+        dir = "/templates"; //默认模版路径,可以修改
+        
+        parseTemp = function(...) begin
+                loadcodex(owner.fileTemp, ...)
+        end;        
+        
+        @{
+                _get = function(k) begin
+                        if(k = "load") return loadcodex; 
+                        var fileTemp = owner[["dir"]] ++"/"++ k ++".aardio";
+                        if(..io.exist(fileTemp,4)){
+                                owner[["fileTemp"]] = fileTemp
+                                return owner[["parseTemp"]]; 
+                        }
+                        else {
+                                ..response.error("Not find: "++ fileTemp)
+                                return function(...){} 
+                        }                        
+                end;                
+        }        
+}
+
+/**intellisense(webaar)
+webaar = webaar网站开发框架
+webaar.input(__/*默认参数表*/) = URL中GET查询参数
+render = 模版渲染器
+render.dir = 模版文件保存路径,默认为templates,模版文件扩展名为aardio
+render.load(.(模版代码或模版文件路径,传递给模版的参数) = 直接加载模版
+end intellisense**/

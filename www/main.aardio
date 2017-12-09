@@ -1,0 +1,21 @@
+/***
+我们开发web应用你需要做的事情就是导入import webaar后，编写这个main.aardio文件（当然当你的web应用大了，可以分模块进行编码）
+这个main.aardio文件支持直接在IDE里点击运行,进行调试分析（不启动IIS）。当然发布以后，我们是在正式的服务器上的IIS中运行(本地IIS也可以),按照官方的aardio网站开发入门教程进行配置，需要注意的是, 在【模块映射】的“请求路径”设置成*（而不是*.aardio），“请求限制里”不要打勾，另外FastCGI代码稍做修改为loadcode(/main.aardio)，让aardio的FastCGI模块处理所有url的请求, 并且入口统一都是根目录下的main.aardio
+
+webaar目录结构：
+网站根目录
+|-- main.aardio
+|-- lib -- webaar（webaar框架目录）
+|      |-- 其他标准库
+|
+|-- static (静态文件保存目录)
+|-- templates（模版目录, 模版文件以*.html命名）
+
+
+在IIS中正式运行，网站根目录设为www，所有/www开始的路径要改为 /,
+
+***/
+
+loadcodex("/www/lib/webaar.aardio");//在IIS发布后，可改为 import webaar
+loadcodex("/www/router.aardio");
+//loadcodex("/www/webmain.aardio");

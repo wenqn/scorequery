@@ -1,0 +1,54 @@
+
+urls = {
+	tcs = "/tcs";
+	tcsQuery = "/tcsQuery";
+	hello = "/hello";
+	index = "/index";
+	root= "/";
+}
+
+class tcs {
+	ctor(){};
+	GET = function(){
+		return loadcodex("/www/tcs/index.aardio");
+	}
+	
+	
+}
+
+class tcsQuery {
+	ctor(){}
+	GET = function(){
+		var q = ..webaar.input({stnumber=0;username=0});//input参数必须设默认值才能接收
+		return ..webaar.render.load("/www/tcs/query.aardio",q);
+		//return q.stnumber ++ "=" ++ q.username;
+	}
+	
+
+}
+
+class hello {
+	ctor(){}
+	GET = function(){
+		return "hello";
+	}
+	
+}
+
+class index {
+	ctor(){}
+	GET = function(){
+		return loadcodex("/www/webmain.aardio");
+	}
+	
+}
+
+class root {
+	ctor(){}
+	GET = function(){
+		return loadcodex("/www/webmain.aardio");
+	}
+}
+
+..webaar.application(urls).run();
+
